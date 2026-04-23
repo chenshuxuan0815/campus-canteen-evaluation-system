@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧食堂评价系统 - 登录注册入口</title>
+    
+    <!-- 引入 Font Awesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            padding: 20px;
+        }
+        
+        /* ===== 主容器 ===== */
+        .login-portal {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        /* 顶部标题 */
+        .portal-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .portal-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .portal-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* 主要内容区 */
+        .portal-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+        
+        /* 左侧：角色选择 */
+        .role-section {
+            padding: 40px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 角色卡片 */
+        .role-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .role-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .role-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+        
+        .role-option.selected {
+            border-color: #2ecc71;
+            background: #f0f9f0;
+        }
+        
+        .role-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .student-icon {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .manager-icon {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .admin-icon {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .role-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .role-info p {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        /* 右侧：登录/注册表单 */
+        .form-section {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 表单切换标签 */
+        .form-tabs {
+            display: flex;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 30px;
+        }
+        
+        .form-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #7f8c8d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .form-tab:hover {
+            color: #3498db;
+        }
+        
+        .form-tab.active {
+            color: #3498db;
+        }
+        
+        .form-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #3498db;
+        }
+        
+        /* 表单样式 */
+        .form-container {
+            flex: 1;
+        }
+        
+        .form {
+            display: none;
+        }
+        
+        .form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+        
+        /* 修复：确保注册按钮始终可用 */
+        .register-btn {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+        
+        /* 底部链接 */
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .form-footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 底部信息 */
+        .portal-footer {
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .portal-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-section {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .portal-title {
+                font-size: 28px;
+            }
+            
+            .portal-subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-portal">
+        <!-- 顶部标题 -->
+        <div class="portal-header">
+            <h1 class="portal-title">
+                <i class="fas fa-utensils"></i>
+                智慧食堂评价系统
+            </h1>
+            <p class="portal-subtitle">请选择您的身份，然后登录或注册账号</p>
+        </div>
+        
+        <div class="portal-content">
+            <!-- 左侧：角色选择 -->
+            <div class="role-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    请选择身份
+                </h2>
+                
+                <div class="role-options">
+                    <!-- 学生/教师选项 -->
+                    <div class="role-option selected" data-role="student" onclick="selectRole('student')">
+                        <div class="role-icon student-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="role-info">
+                            <h3>学生/教师</h3>
+                            <p>查看菜品、发布评价、查看排行榜</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 食堂管理者选项 -->
+                    <div class="role-option" data-role="manager" onclick="selectRole('manager')">
+                        <div class="role-icon manager-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="role-info">
+                            <h3>食堂管理者</h3>
+                            <p>管理评价、维护菜品、查看数据</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 超级管理员选项 -->
+                    <div class="role-option" data-role="admin" onclick="selectRole('admin')">
+                        <div class="role-icon admin-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="role-info">
+                            <h3>超级管理员</h3>
+                            <p>系统管理、权限配置、全局监控</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 角色说明 -->
+                <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 10px;">
+                    <h4 style="font-weight: 600; margin-bottom: 10px; color: #2c3e50;">当前身份说明：</h4>
+                    <p id="role-description" style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+                        学生/教师用户需要先注册学号/工号才能登录系统
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 右侧：登录/注册表单 -->
+            <div class="form-section">
+                <!-- 表单切换标签 -->
+                <div class="form-tabs">
+                    <div class="form-tab active" onclick="showForm('login')">登录</div>
+                    <div class="form-tab" onclick="showForm('register')">注册</div>
+                </div>
+                
+                <div class="form-container">
+                    <!-- 登录表单 -->
+                    <form id="loginForm" class="form active" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label" id="login-id-label">学号/工号</label>
+                            <input type="text" id="loginId" class="form-input" placeholder="请输入您的学号或工号" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">密码</label>
+                            <input type="password" id="loginPassword" class="form-input" placeholder="请输入密码" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center;">
+                                <input type="checkbox" id="rememberMe" style="margin-right: 8px;">
+                                记住登录状态
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary" id="loginBtn">登录</button>
+                        
+                        <div class="form-footer">
+                            <a href="#" onclick="showForm('register')">还没有账号？立即注册</a>
+                        </div>
+                    </form>
+                    
+                    <!-- 注册表单 -->
+                    <form id="registerForm" class="form" onsubmit="handleRegister(event)">
+                        <!-- 学生/教师注册字段 -->
+                        <div id="studentFields">
+                            <div class="form-group">
+                                <label class="form-label">真实姓名</label>
+                                <input type="text" id="regName" class="form-input" placeholder="请输入您的真实姓名" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">学号/工号</label>
+                                <input type="text" id="regStudentId" class="form-input" placeholder="请输入学号或工号" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">手机号码</label>
+                                <input type="tel" id="regPhone" class="form-input" placeholder="请输入手机号码" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">邮箱</label>
+                                <input type="email" id="regEmail" class="form-input" placeholder="请输入邮箱地址" required>
+                            </div>
+                        </div>
+                        
+                        <!-- 管理员注册字段 -->
+                        <div id="adminFields" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label">管理员账号</label>
+                                <input type="text" id="regAdminId" class="form-input" placeholder="请输入管理员账号">
+                                <small style="color: #7f8c8d; font-size: 12px;">管理员账号由系统分配，请勿随意注册</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">所属食堂（仅食堂管理者）</label>
+                                <select id="regCanteen" class="form-input" disabled>
+                                    <option value="">请选择所属食堂</option>
+                                    <option value="1">第一食堂</option>
+                                    <option value="2">第二食堂</option>
+                                    <option value="3">第三食堂</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- 公共字段 -->
+                        <div class="form-group">
+                            <label class="form-label">密码</label>
+                            <input type="password" id="regPassword" class="form-input" placeholder="请输入密码（至少6位）" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">确认密码</label>
+                            <input type="password" id="regConfirmPassword" class="form-input" placeholder="请再次输入密码" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; font-size: 14px;">
+                                <input type="checkbox" id="agreeTerms" style="margin-right: 8px;" required>
+                                我已阅读并同意
+                                <a href="#" style="color: #3498db; margin-left: 4px;">《用户服务协议》</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="register-btn" id="registerBtn">注册</button>
+                        
+                        <div class="form-footer">
+                            <a href="#" onclick="showForm('login')">已有账号？立即登录</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部信息 -->
+        <div class="portal-footer">
+            <p>© 2026 智慧食堂评价系统 | 计算机与人工智能学院出品 | 服务热线：400-123-4567</p>
+        </div>
+    </div>
+
+    <script>
+        // 当前选择的角色
+        let currentRole = 'student';
+        
+        // 角色信息配置
+        const roleConfig = {
+            student: {
+                title: '学生/教师',
+                description: '学生/教师用户需要先注册学号/工号才能登录系统，注册后可以查看菜品、发布评价、查看排行榜。',
+                loginIdLabel: '学号/工号',
+                loginIdPlaceholder: '请输入您的学号或工号',
+                loginUrl: 'frontend-user/index.html',
+                canRegister: true
+            },
+            manager: {
+                title: '食堂管理者',
+                description: '食堂管理者账号由系统管理员分配，请使用分配的管理员账号登录。如需账号请联系超级管理员。',
+                loginIdLabel: '管理员账号',
+                loginIdPlaceholder: '请输入管理员账号',
+                loginUrl: 'canteen-manager/dashboard.html',
+                canRegister: false
+            },
+            admin: {
+                title: '超级管理员',
+                description: '超级管理员账号由系统内置，请使用内置的管理员账号登录。如需新增账号请联系系统管理员。',
+                loginIdLabel: '管理员账号',
+                loginIdPlaceholder: '请输入超级管理员账号',
+                loginUrl: 'super-admin/dashboard.html',
+                canRegister: false
+            }
+        };
+        
+        // 选择角色
+        function selectRole(role) {
+            currentRole = role;
+            const config = roleConfig[role];
+            
+            // 更新选中的角色卡片
+            document.querySelectorAll('.role-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`.role-option[data-role="${role}"]`).classList.add('selected');
+            
+            // 更新角色说明
+            document.getElementById('role-description').textContent = config.description;
+            
+            // 更新登录表单标签
+            document.getElementById('login-id-label').textContent = config.loginIdLabel;
+            document.getElementById('loginId').placeholder = config.loginIdPlaceholder;
+            
+            // 修复：永远不禁用注册按钮，改为在提交时检查
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn.disabled = false;
+            registerBtn.classList.remove('btn-disabled');
+            
+            // 修复：永远不禁用注册标签
+            document.querySelectorAll('.form-tab').forEach(tab => {
+                tab.style.pointerEvents = 'auto';
+            });
+            
+            // 根据角色切换注册字段
+            if (role === 'student') {
+                document.getElementById('studentFields').style.display = 'block';
+                document.getElementById('adminFields').style.display = 'none';
+            } else {
+                document.getElementById('studentFields').style.display = 'none';
+                document.getElementById('adminFields').style.display = 'block';
+                
+                if (role === 'manager') {
+                    document.getElementById('regCanteen').disabled = false;
+                } else {
+                    document.getElementById('regCanteen').disabled = true;
+                }
+            }
+        }
+        
+        // 显示表单
+        function showForm(formType) {
+            // 更新标签
+            document.querySelectorAll('.form-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.form-tab')[formType === 'login' ? 0 : 1].classList.add('active');
+            
+            // 更新表单显示
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('registerForm').classList.remove('active');
+            document.getElementById(`${formType}Form`).classList.add('active');
+        }
+        
+        // 处理登录
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const id = document.getElementById('loginId').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            if (!id || !password) {
+                alert('请填写完整的登录信息');
+                return;
+            }
+            
+            // 模拟登录验证
+            console.log(`登录尝试 - 角色: ${currentRole}, ID: ${id}`);
+            
+            // 这里应该调用后端API验证登录
+            // 模拟成功登录
+            if (id === 'test' && password === '123456') {
+                alert(`登录成功！欢迎使用${roleConfig[currentRole].title}系统`);
+                
+                // 保存登录状态
+                if (rememberMe) {
+                    localStorage.setItem('userRole', currentRole);
+                    localStorage.setItem('userId', id);
+                }
+                
+                // 跳转到对应系统
+                setTimeout(() => {
+                    window.location.href = roleConfig[currentRole].loginUrl;
+                }, 1000);
+            } else {
+                alert('登录失败，请检查账号和密码');
+            }
+        }
+        
+        // 处理注册
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const config = roleConfig[currentRole];
+            
+            // 检查是否允许注册
+            if (!config.canRegister) {
+                alert(`${config.title}账号不支持公开注册，请联系管理员获取账号`);
+                return;
+            }
+            
+            // 学生/教师注册验证
+            if (currentRole === 'student') {
+                const name = document.getElementById('regName').value.trim();
+                const studentId = document.getElementById('regStudentId').value.trim();
+                const phone = document.getElementById('regPhone').value.trim();
+                const email = document.getElementById('regEmail').value.trim();
+                const password = document.getElementById('regPassword').value;
+                const confirmPassword = document.getElementById('regConfirmPassword').value;
+                
+                if (!name || !studentId || !phone || !email || !password) {
+                    alert('请填写所有必填项');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    alert('密码长度至少6位');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    alert('两次输入的密码不一致');
+                    return;
+                }
+                
+                // 模拟注册成功
+                console.log(`注册学生账号 - 姓名: ${name}, 学号: ${studentId}`);
+                alert('注册成功！您的学号/工号已注册，请使用该账号登录');
+                
+                // 切换到登录表单
+                showForm('login');
+                document.getElementById('loginId').value = studentId;
+                
+            } else {
+                // 管理员注册（通常不允许公开注册）
+                alert(`${config.title}账号不支持公开注册，请联系系统管理员获取账号`);
+            }
+        }
+        
+        // 页面加载初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 默认选中学生角色
+            selectRole('student');
+            
+            // 检查是否有保存的登录状态
+            const savedRole = localStorage.getItem('userRole');
+            if (savedRole) {
+                console.log('检测到已保存的登录状态:', savedRole);
+                // 这里可以自动填充登录信息
+            }
+        });
+    </script>
+</body>
+</html>
